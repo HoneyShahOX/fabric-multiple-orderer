@@ -98,7 +98,7 @@ cat << EOF > DevServer_connection.json
         "composerchannel": {
             "orderers": [
                 "orderer0.example.com",
-                "orderer1.example.com",
+                "orderer1.example.com"
             ],
             "peers": {
                 "peer0.org1.example.com": {}
@@ -139,7 +139,7 @@ cat << EOF > DevServer_connection.json
 }
 EOF
 
-PRIVATE_KEY="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/114aab0e76bf0c78308f89efc4b8c9423e31568da0c340ca187a9b17aa9a4457_sk
+PRIVATE_KEY="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/ad280184350bc101cdaceeaacf8751bc1b0aa51bf1525d4cfc85f7d9fff032c2_sk
 CERT="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
 
 if [ "${NOIMPORT}" != "true" ]; then
