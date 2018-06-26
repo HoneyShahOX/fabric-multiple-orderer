@@ -20,7 +20,8 @@
         "composerchannel": {
             "orderers": [
                 "orderer0.example.com",
-                "orderer1.example.com"
+                "orderer1.example.com",
+                "orderer2.example.com"
             ],
             "peers": {
                 "peer0.org1.example.com": {}
@@ -44,6 +45,9 @@
         },
         "orderer1.example.com": {
             "url": "grpc://localhost:8050"
+        },
+        "orderer2.example.com": {
+            "url": "grpc://localhost:9050"
         }
     },
     "peers": {

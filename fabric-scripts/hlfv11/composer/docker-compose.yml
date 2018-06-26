@@ -9,50 +9,50 @@ services:
 
     ports:
       - "7054:7054"
-    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/30cf9e1a2e91a8a66af076a675536277bd8e88eb00467624fb38889ab1dff8a7_sk -b admin:adminpw -d'
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/588d142c8bd0304ef2d482a437e0ea85f1f73ebdb16d5793497aeff135208d91_sk -b admin:adminpw -d'
     volumes:
       - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.org1.example.com
 
-  zookeeper0.example.com:
+  zookeeper0:
     image: hyperledger/fabric-zookeeper
-    container_name: zookeeper0.example.com
+    container_name: zookeeper0
     environment:
       - ZOO_MY_ID=1
-      - ZOO_SERVERS=server.1=zookeeper0.example.com:2888:3888 server.2=zookeeper1.example.com:2888:3888 server.3=zookeeper2.example.com:2888:3888
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
     ports:
       - 2181
       - 2888
       - 3888
 
-  zookeeper1.example.com:
+  zookeeper1:
     image: hyperledger/fabric-zookeeper
-    container_name: zookeeper1.example.com
+    container_name: zookeeper1
     environment:
       - ZOO_MY_ID=2
-      - ZOO_SERVERS=server.1=zookeeper0.example.com:2888:3888 server.2=zookeeper1.example.com:2888:3888 server.3=zookeeper2.example.com:2888:3888
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
     ports:
       - 2181
       - 2888
       - 3888
 
-  zookeeper2.example.com:
+  zookeeper2:
     image: hyperledger/fabric-zookeeper
-    container_name: zookeeper2.example.com
+    container_name: zookeeper2
     environment:
       - ZOO_MY_ID=3
-      - ZOO_SERVERS=server.1=zookeeper0.example.com:2888:3888 server.2=zookeeper1.example.com:2888:3888 server.3=zookeeper2.example.com:2888:3888
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
     ports:
       - 2181
       - 2888
       - 3888
 
-  kafka0.example.com:
+  kafka0:
     image: hyperledger/fabric-kafka
-    container_name: kafka0.example.com
+    container_name: kafka0
     environment:
       - KAFKA_BROKER_ID=0
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0.example.com:2181,zookeeper1.example.com:2181,zookeeper2.example.com:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
       - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=16000
       - KAFKA_LOG_RETENTION_MS=-1
       - KAFKA_MESSAGE_MAX_BYTES=103809024
@@ -61,20 +61,19 @@ services:
       - KAFKA_DEFAULT_REPLICATION_FACTOR=3
       - KAFKA_MIN_INSYNC_REPLICAS=2
     depends_on:
-      - zookeeper0.example.com
-      - zookeeper1.example.com
-      - zookeeper2.example.com
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
         
     ports:
-      - 9092:9092
-      - 9093:9093
+      - 9092
 
-  kafka1.example.com:
+  kafka1:
     image: hyperledger/fabric-kafka
-    container_name: kafka1.example.com
+    container_name: kafka1
     environment:
       - KAFKA_BROKER_ID=1
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0.example.com:2181,zookeeper1.example.com:2181,zookeeper2.example.com:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
       - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=16000
       - KAFKA_LOG_RETENTION_MS=-1
       - KAFKA_MESSAGE_MAX_BYTES=103809024
@@ -83,20 +82,19 @@ services:
       - KAFKA_DEFAULT_REPLICATION_FACTOR=3
       - KAFKA_MIN_INSYNC_REPLICAS=2
     depends_on:
-      - zookeeper0.example.com
-      - zookeeper1.example.com
-      - zookeeper2.example.com
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
         
     ports:
-      - 10092:9092
-      - 10093:9093
+      - 9092
 
-  kafka2.example.com:
+  kafka2:
     image: hyperledger/fabric-kafka
-    container_name: kafka2.example.com
+    container_name: kafka2
     environment:
       - KAFKA_BROKER_ID=2
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0.example.com:2181,zookeeper1.example.com:2181,zookeeper2.example.com:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
       - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=16000
       - KAFKA_LOG_RETENTION_MS=-1
       - KAFKA_MESSAGE_MAX_BYTES=103809024
@@ -105,19 +103,18 @@ services:
       - KAFKA_DEFAULT_REPLICATION_FACTOR=3
       - KAFKA_MIN_INSYNC_REPLICAS=2
     depends_on:
-      - zookeeper0.example.com
-      - zookeeper1.example.com
-      - zookeeper2.example.com
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
     ports:
-      - 11092:9092
-      - 11093:9093
+      - 9092
 
-  kafka3.example.com:
+  kafka3:
     image: hyperledger/fabric-kafka
-    container_name: kafka3.example.com
+    container_name: kafka3
     environment:
       - KAFKA_BROKER_ID=3
-      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0.example.com:2181,zookeeper1.example.com:2181,zookeeper2.example.com:2181
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
       - KAFKA_ZOOKEEPER_CONNECTION_TIMEOUT_MS=16000
       - KAFKA_LOG_RETENTION_MS=-1
       - KAFKA_MESSAGE_MAX_BYTES=103809024
@@ -126,12 +123,11 @@ services:
       - KAFKA_DEFAULT_REPLICATION_FACTOR=3
       - KAFKA_MIN_INSYNC_REPLICAS=2
     depends_on:
-      - zookeeper0.example.com
-      - zookeeper1.example.com
-      - zookeeper2.example.com
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
     ports:
-      - 12092:9092
-      - 12093:9093
+      - 9092
 
   orderer0.example.com:
     container_name: orderer0.example.com
@@ -139,12 +135,13 @@ services:
     environment:
       - ORDERER_HOST=orderer0.example.com
       - CONFIGTX_ORDERER_ORDERERTYPE=kafka
-      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0.example.com:9092,kafka1.example.com:9092,kafka2.example.com:9092,kafka3.example.com:9092]
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
       - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
       - ORDERER_GENERAL_LOGLEVEL=DEBUG
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISPROFILE=ComposerOrdererGenesis
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/composer-genesis.block
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
@@ -158,10 +155,11 @@ services:
         - ./:/etc/hyperledger/configtx
         - ./crypto-config/ordererOrganizations/example.com/orderers/orderer0.example.com/msp:/etc/hyperledger/msp/orderer/msp
     depends_on:
-        - kafka0.example.com
-        - kafka1.example.com
-        - kafka2.example.com
-        - kafka3.example.com
+        - kafka0
+        - kafka1
+        - kafka2
+        - kafka3
+        
 
   orderer1.example.com:
     container_name: orderer1.example.com
@@ -169,13 +167,13 @@ services:
     environment:
       - ORDERER_HOST=orderer1.example.com
       - CONFIGTX_ORDERER_ORDERERTYPE=kafka
-      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0.example.com:9092,kafka1.example.com:9092,kafka2.example.com:9092,kafka3.example.com:9092]
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
       - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
       - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
       - ORDERER_KAFKA_VERBOSE=true
-        # - ORDERER_GENERAL_GENESISPROFILE=InnoOrdererGenesis
       - ORDERER_GENERAL_LOGLEVEL=DEBUG
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISPROFILE=ComposerOrdererGenesis
       - ORDERER_GENERAL_GENESISMETHOD=file
       - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/composer-genesis.block
       - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
@@ -191,10 +189,43 @@ services:
         - ./crypto-config/ordererOrganizations/example.com/orderers/orderer1.example.com/msp:/etc/hyperledger/msp/orderer/msp
 
     depends_on:
-        - kafka0.example.com
-        - kafka1.example.com
-        - kafka2.example.com
-        - kafka3.example.com
+        - kafka0
+        - kafka1
+        - kafka2
+        - kafka3
+
+  orderer2.example.com:
+    container_name: orderer2.example.com
+    image: hyperledger/fabric-orderer:$ARCH-1.1.0
+    environment:
+      - ORDERER_HOST=orderer2.example.com
+      - CONFIGTX_ORDERER_ORDERERTYPE=kafka
+      - CONFIGTX_ORDERER_KAFKA_BROKERS=[kafka0:9092,kafka1:9092,kafka2:9092,kafka3:9092]
+      - ORDERER_KAFKA_RETRY_SHORTINTERVAL=1s
+      - ORDERER_KAFKA_RETRY_SHORTTOTAL=30s
+      - ORDERER_KAFKA_VERBOSE=true
+      - ORDERER_GENERAL_GENESISPROFILE=ComposerOrdererGenesis
+      - ORDERER_GENERAL_LOGLEVEL=DEBUG
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/etc/hyperledger/configtx/composer-genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/etc/hyperledger/msp/orderer/msp
+      
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    ports:
+      - 9050:7050
+    volumes:
+        # - ./
+        - ./:/etc/hyperledger/configtx
+        - ./crypto-config/ordererOrganizations/example.com/orderers/orderer2.example.com/msp:/etc/hyperledger/msp/orderer/msp
+    depends_on:
+        - kafka0
+        - kafka1
+        - kafka2
+        - kafka3
+
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
@@ -223,6 +254,7 @@ services:
     depends_on:
       - orderer0.example.com
       - orderer1.example.com
+      - orderer2.example.com
       - couchdb
 
   couchdb:

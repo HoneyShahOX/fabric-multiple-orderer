@@ -98,7 +98,8 @@ cat << EOF > DevServer_connection.json
         "composerchannel": {
             "orderers": [
                 "orderer0.example.com",
-                "orderer1.example.com"
+                "orderer1.example.com",
+                "orderer2.example.com"
             ],
             "peers": {
                 "peer0.org1.example.com": {}
@@ -122,6 +123,9 @@ cat << EOF > DevServer_connection.json
         },
         "orderer1.example.com": {
             "url": "grpc://${HOST}:8050"
+        },
+        "orderer2.example.com": {
+            "url": "grpc://${HOST}:9050"
         }
     },
     "peers": {
@@ -139,7 +143,7 @@ cat << EOF > DevServer_connection.json
 }
 EOF
 
-PRIVATE_KEY="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/82d31e213ab14ca45bfeba350bda942dbb6f9b37abbcf3c671cc0ba0682c7fe9_sk
+PRIVATE_KEY="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/b4bd556a23e164db94b77f82083700b2d66f43e097df218d87b15d54448605eb_sk
 CERT="${DIR}"/composer/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
 
 if [ "${NOIMPORT}" != "true" ]; then
